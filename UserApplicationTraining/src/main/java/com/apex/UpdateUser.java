@@ -46,8 +46,10 @@ public class UpdateUser extends HttpServlet {
 			throws ServletException, IOException {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		/* String query = "Update user set password='"+password+"' where
-		// username='"+username+"'";*/
+		/*
+		 * String query = "Update user set password='"+password+"' where //
+		 * username='"+username+"'";
+		 */
 		try {
 			PreparedStatement statement = connection.prepareStatement("update user set password=? where username=?");
 			statement.setString(1, password);
@@ -57,6 +59,7 @@ public class UpdateUser extends HttpServlet {
 			PrintWriter writer = response.getWriter();
 
 			if (result > 0) {
+
 				writer.append("User is updated successfully.");
 			} else {
 				writer.append("Error updating user.");

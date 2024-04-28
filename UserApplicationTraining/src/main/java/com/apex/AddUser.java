@@ -6,8 +6,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
@@ -67,14 +67,19 @@ public class AddUser extends HttpServlet {
 				response.setContentType("text/html");
 
 				if (result == 1) {
-					writer.append("User is added successfully.");
+					RequestDispatcher rd=request.getRequestDispatcher("successServlet");
+					rd.forward(request, response);
+					
 				} else {
 					writer.append("Error adding user.");
 				}
 				writer.close();
 				statement.close();
 			} else {
-				writer.print("Fields cannot be left empty");
+				RequestDispatcher rd=request.getRequestDispatcher("addUser.html");
+				writer.print("<h1 style='color:red'>Fields cannot be left empty</h1>");
+				rd.include(request, response);
+				
 			}
 
 		} catch (SQLException e) {
